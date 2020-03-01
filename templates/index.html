@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+
+
+{% endblock %}
+
+{% block heading %}
+    CS50 Flack
+{% endblock %}
+
+{% block body %}
+<div class="mt4" id="registered"><h3></h3></div>
+<div class="mt4" id="not_registered">
+    <h5>Choose a username</h5>
+    <div class="mt-4">
+    <form action="register" method="post" id="form_username">
+        <div class="form-group">
+            <label for="InputUsername">Username</label>
+            <input name ="username" type="username" class="form-control" id="InputUsername" autocomplete="off" placeholder="Choose a username">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>   
+    </form>
+    </div>
+</div>
+<div class="mt4" id="result"><p class="text-danger"></p></div>
+
+{% endblock %}

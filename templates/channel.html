@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js" integrity="sha256-OgiHfllOBEOiWQ2OcBsDncRG2k7QBW9Rs1dB7MH2N2s=" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='channel.js') }}"></script>
+<style>
+  #messages { list-style-type: none; margin: 0; padding: 0; }
+  #messages li { padding: 5px 10px; }
+  #messages li:nth-child(odd) { background: #eee; }
+</style>
+
+
+{% endblock %}
+
+{% block heading %}
+    <span id="current_channel">{{current_channel}}</span>
+{% endblock %}
+
+
+{% block body %}
+    <div class="mb-3">
+        <ul class="list-group" id="messages">
+    {% if messages %}        
+            {% for message in messages %}
+                <li class="list-group-item"><b>{{message.user}}:</b>&nbsp;&nbsp;{{message.message}}&nbsp;&nbsp;<span class="timestamp"><sub><i>{{message.timestamp}}</i></sub></span> </li>
+            {% endfor %} 
+    {% endif %}
+        </ul>
+    </div>    
+    <form id="form_message">
+    <div class="input-group input-group-lg">
+        <div class="input-group-prepend" id="username">
+            <span class="input-group-text" id="inputGroup-sizing-lg">With textarea</span>
+        </div>
+                <input type="text" class="form-control" id="InputMessage" autocomplete="off" placeholder="Enter message">
+                <button type="submit" class="btn btn-primary" id="sendbutton">Send</button> 
+    </div> 
+    </form>
+
+{% endblock %}

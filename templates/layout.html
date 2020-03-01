@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!-- Local CSS -->
+        <!-- <link rel="stylesheet" href="project2.css">    -->
+        <script src="{{ url_for('static', filename='layout.js') }}"></script>
+        {% block scripts %}{% endblock %}
+        
+        <title>CS50 Web Project 2</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light nav-justified">
+            <a class="navbar-brand" href="{{ url_for(('home')) }}">CS50Flack</a>
+            <a class="nav-link" id="link_newchannel" href="{{ url_for(('home')) }}">New Channel</a>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <div class=mb-4>
+                    <h1 class="display-4">{% block heading %}{% endblock %}</h1>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class=flashes>
+                            {% for message in messages %}
+                                <li><p class="text-danger">{{ message }}</p></li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+
+                    {% if channels %}
+                    <h5>Channel List</h5>                    
+                    <nav class="nav flex-column" id="channel_list">
+                        {% for channel in channels %}
+                            <a class="nav-link" href="{{ url_for('channel', channel=channel) }}" id="{{channel}}">#{{channel}}</a>
+                        {% endfor %}    
+                    </nav>
+                    {% endif %}
+
+                </div>
+                <div class="col-8">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+                <div class="col-2">
+
+                    <h5>Members</h5>
+                    <nav class="nav flex-column" id="user_list">                    
+                    {% if users %}
+
+                        {% for user in users %}
+                            <p id="{{user}}">{{user}}</p>
+                        {% endfor %}  
+                    {% endif %}
+                    </nav>
+
+                </div>
+            </div>
+       </div> 
+    </body>
+</html>
